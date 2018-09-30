@@ -4,17 +4,17 @@ import masterMind.models.Game;
 
 abstract class ColocateController extends OperationController {
 
-	private PermutationController permutationController;
+	private AttempController attempController;
 
 	protected ColocateController(Game game, 
-			PermutationController permutationController) {
+			AttempController attempController) {
 		super(game);
-		assert permutationController != null;
-		this.permutationController = permutationController;
+		assert attempController != null;
+		this.attempController = attempController;
 	}
 
-	public PermutationController getPermutationController(){
-		return permutationController;
+	public AttempController getAttempController(){
+		return attempController;
 	}
 
 }

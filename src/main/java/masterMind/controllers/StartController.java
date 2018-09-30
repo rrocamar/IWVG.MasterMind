@@ -11,7 +11,6 @@ public class StartController extends OperationController {
 	}
 	
 	public void setUsers(int users){
-		assert new ClosedInterval(0, this.numPlayers()).includes(users);
 		assert this.getState() == State.INITIAL;
 		this.setState(State.IN_GAME);
 	}

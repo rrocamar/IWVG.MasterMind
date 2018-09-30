@@ -1,5 +1,7 @@
 package masterMind.models;
 
+import java.util.ArrayList;
+
 public class Game {
 
 	private State state;
@@ -29,5 +31,9 @@ public class Game {
 
 	public boolean isBrokenSecretCode() {
 		return board.isBrokenSecretCode();
+	}
+
+	public ArrayList<Result> getAttemps() {
+		return board.getAttemps();
 	}
 }

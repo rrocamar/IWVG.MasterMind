@@ -6,7 +6,7 @@ public class Logic {
 
 	private Game game;
 
-	private ColocateController colocateController;
+	private AttempController attempsController;
 	
 	private StartController startController;
 
@@ -15,7 +15,7 @@ public class Logic {
 	public Logic() {
 		game = new Game();
 		startController = new StartController(game);
-		colocateController = new ColocateControllerBuilder(game);
+		attempsController = new RandomAttempController(game);
 		continueController = new ContinueController(game);
 	}
 
@@ -24,7 +24,7 @@ public class Logic {
 		case INITIAL:
 			return startController;
 		case IN_GAME:
-			return colocateControllerBuilder.getColocateController();
+			return attempsController;
 		case FINAL:
 			return continueController;
 		case EXIT:

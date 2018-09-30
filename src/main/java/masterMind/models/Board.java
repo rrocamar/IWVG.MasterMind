@@ -22,8 +22,8 @@ class Board {
 		return attemps.size()==MAX_TURNS || isBrokenSecretCode();
 	}
 
-	public int getAttemps(){
-		return attemps.size();
+	public ArrayList<Result> getAttemps(){
+		return attemps;
 	}
 
 	public void tryCode(Permutation code) {

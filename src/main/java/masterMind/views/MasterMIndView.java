@@ -1,19 +1,18 @@
 package masterMind.views;
 
 import masterMind.controllers.ContinueController;
-import masterMind.controllers.PermutationController;
+import masterMind.controllers.AttempController;
 import masterMind.controllers.Error;
 import masterMind.controllers.OperationController;
-import masterMind.controllers.PutController;
-import masterMind.controllers.RandomPermutationController;
+import masterMind.controllers.RandomAttempController;
 import masterMind.controllers.StartController;
-import masterMind.controllers.UserPermutationController;
+import masterMind.controllers.UserAttempController;
 import masterMind.models.Coordinate;
 import masterMind.utils.IO;
 import masterMind.utils.LimitedIntDialog;
 import masterMind.utils.YesNoDialog;
 
-public class TicTacToeView {
+public class MasterMIndView {
 
 	private IO io = new IO();
 
@@ -21,8 +20,8 @@ public class TicTacToeView {
 		assert controller != null;
 		if (controller instanceof StartController) {
 			this.interact((StartController) controller);
-		} else if (controller instanceof PutController) {
-			this.interact((PutController) controller);
+		} else if (controller instanceof AttempController) {
+			this.interact((AttempController) controller);
 		} else if (controller instanceof ContinueController) {
 			this.interact((ContinueController) controller);
 		}
@@ -36,20 +35,20 @@ public class TicTacToeView {
 		new BoardView(startController).write();
 	}
 
-	private void interact(PutController putController) {
-		ColorView colorView = new ColorView(putController.take());
+	private void interact(AttempController attempController) {
+		ColorView colorView = new ColorView(attempController.take());
 		colorView.writeln("Pone el jugador ");
 		Coordinate target;
 		Error error = null;
 		do {
 			target = this.getTarget("En",
-					putController.getPermutationController());
+					putController.getAttempController());
 			error = putController.validateTarget(target);
 			if (error != null) {
 				io.writeln("" + error);
 			}
 		} while (error != null);
-		putController.put(target);
+		putController.tryCode (target);
 		new BoardView(putController).write();
 		if (putController.existTicTacToe()) {
 			colorView.writeWinner();
@@ -57,50 +56,50 @@ public class TicTacToeView {
 	}
 
 	private Coordinate getTarget(String title,
-			PermutationController permutationController) {
-		if (permutationController instanceof UserPermutationController) {
+			AttempController attempController) {
+		if (attempController instanceof UserAttempController) {
 			return this.getTarget(title,
-					(UserPermutationController) permutationController);
-		} else if (permutationController instanceof RandomPermutationController) {
+					(UserAttempController) attempController);
+		} else if (attempController instanceof RandomAttempController) {
 			return this.getTarget(title,
-					(RandomPermutationController) permutationController);
+					(RandomAttempController) attempController);
 		}
 		return null;
 	}
 
 	private Coordinate getTarget(String title,
-			UserPermutationController coordinateController) {
+			UserAttempController coordinateController) {
 		Coordinate coordinate = coordinateController.getTarget();
 		new CoordinateView(title, coordinate).read();
 		return coordinate;
 	}
 
 	private Coordinate getTarget(String title,
-			RandomPermutationController coordinateController) {
+			RandomAttempController coordinateController) {
 		Coordinate coordinate = coordinateController.getTarget();
 		new CoordinateView("La máquina pone en ", coordinate).write();
 		io.readString(". Pulse enter para continuar");
 		return coordinate;
 	}
 
-	private Coordinate getOrigin(PermutationController permutationController) {
-		if (permutationController instanceof UserPermutationController) {
+	private Coordinate getOrigin(AttempController attempController) {
+		if (attempController instanceof UserAttempController) {
 			return this
-					.getOrigin((UserPermutationController) permutationController);
-		} else if (permutationController instanceof RandomPermutationController) {
+					.getOrigin((UserAttempController) attempController);
+		} else if (attempController instanceof RandomAttempController) {
 			return this
-					.getOrigin((RandomPermutationController) permutationController);
+					.getOrigin((RandomAttempController) attempController);
 		}
 		return null;
 	}
 
-	private Coordinate getOrigin(UserPermutationController coordinateController) {
+	private Coordinate getOrigin(UserAttempController coordinateController) {
 		Coordinate coordinate = coordinateController.getOrigin();
 		new CoordinateView("De", coordinate).read();
 		return coordinate;
 	}
 
-	private Coordinate getOrigin(RandomPermutationController coordinateController) {
+	private Coordinate getOrigin(RandomAttempController coordinateController) {
 		Coordinate coordinate = coordinateController.getOrigin();
 		new CoordinateView("La máquina quita de ", coordinate).write();
 		io.readString(". Pulse enter para continuar");
@@ -108,19 +107,19 @@ public class TicTacToeView {
 	}
 
 	private Coordinate getTarget(String title,
-								 PermutationController permutationController, Coordinate origin) {
-		if (permutationController instanceof UserPermutationController) {
+								 AttempController attempController, Coordinate origin) {
+		if (attempController instanceof UserAttempController) {
 			return this.getTarget(title,
-					(UserPermutationController) permutationController);
-		} else if (permutationController instanceof RandomPermutationController) {
+					(UserAttempController) attempController);
+		} else if (attempController instanceof RandomAttempController) {
 			return this.getTarget(title,
-					(RandomPermutationController) permutationController, origin);
+					(RandomAttempController) attempController, origin);
 		}
 		return null;
 	}
 
 	private Coordinate getTarget(String title,
-								 RandomPermutationController coordinateController, Coordinate origin) {
+								 RandomAttempController coordinateController, Coordinate origin) {
 		Coordinate coordinate = coordinateController.getTarget(origin);
 		new CoordinateView("La máquina pone en ", coordinate).write();
 		io.readString(". Pulse enter para continuar");

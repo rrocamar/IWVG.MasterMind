@@ -2,17 +2,17 @@ package masterMind;
 
 import masterMind.controllers.Logic;
 import masterMind.controllers.OperationController;
-import masterMind.views.TicTacToeView;
+import masterMind.views.MasterMIndView;
 
 public class MasterMind {
 
 	private Logic logic;
 	
-	private TicTacToeView view;
+	private MasterMIndView view;
 	
 	public MasterMind() {
 		logic = new Logic();
-		view = new TicTacToeView();
+		view = new MasterMIndView();
 	}
 	
 	public void play() {

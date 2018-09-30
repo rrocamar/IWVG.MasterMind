@@ -2,6 +2,8 @@ package masterMind.controllers;
 
 import masterMind.models.*;
 
+import java.util.ArrayList;
+
 public abstract class Controller {
 
 	private Game game;
@@ -21,9 +23,9 @@ public abstract class Controller {
 		game.setState(state);
 	}
 	
-	protected void put(Permutation permutation) {
-		assert permutation != null;
-		game.put(permutation);
+	public void tryCode(Permutation attemp) {
+		assert attemp != null;
+		game.tryCode(attemp);
 		if (game.isBrokenSecretCode()) {
 			game.setState(State.FINAL);
 		}
@@ -33,6 +35,9 @@ public abstract class Controller {
 		game.clear();		
 	}	
 
+	public ArrayList<Result> getAttemps(){
+		return  this.game.getAttemps();
+	}
 	
 	public boolean isBrokenSecretCode() {
 		return game.isBrokenSecretCode();
