@@ -18,13 +18,9 @@ public class Game {
 	public void setState(State state){
 		this.state = state;
 	}
-	
-	public int getNumPlayers() {
-		return NUM_PLAYERS;
-	}
-	
-	public void put(Permutation permutation) {
-		board.put(permutation);
+
+	public void tryCode(Permutation attemp) {
+		board.tryCode(attemp);
 	}
 
 	public void clear() {

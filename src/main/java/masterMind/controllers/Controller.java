@@ -10,10 +10,7 @@ public abstract class Controller {
 		assert game != null;
 		this.game = game;
 	}
-	
-	protected int numPlayers() {
-		return game.getNumPlayers();
-	}
+
 	
 	protected State getState(){
 		return game.getState();
@@ -37,13 +34,8 @@ public abstract class Controller {
 	}	
 
 	
-	public boolean existTicTacToe() {
-		return game.existTicTacToe();
+	public boolean isBrokenSecretCode() {
+		return game.isBrokenSecretCode();
 	}	
-	
-	public Color getColor(Coordinate coordinate){
-		assert coordinate != null;
-		return game.getColor(coordinate);
-	}
-	
+
 }

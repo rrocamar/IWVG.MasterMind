@@ -3,7 +3,7 @@ package masterMind.models;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Permutation {
+public class Permutation implements Cloneable{
 
     public static final int NUMBER_OF_COLORS = 4;
 
@@ -13,6 +13,9 @@ public class Permutation {
         this.colors = new ArrayList<Color>();
     }
 
+    public Permutation(Permutation permutation) {
+        this.colors = new ArrayList<Color>(permutation.colors);
+    }
     public void random() {
         Random random = new Random(System.currentTimeMillis());
         int numberOfColors = Color.values().length;
@@ -56,7 +59,7 @@ public class Permutation {
 
     public int posicion(Color color){
         assert contains(color);
-        for(int i=0;i<this.getNumeroFichas();i++) {
+        for(int i=0;i<this.size();i++) {
             if (color.equals(this.getColor(i)))
                 return i;
         }
@@ -67,8 +70,7 @@ public class Permutation {
         return this.colors.get(posicion);
     }
 
-    public int getNumeroFichas(){
+    public int size(){
         return this.colors.size();
     }
-
 }

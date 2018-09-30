@@ -2,47 +2,41 @@ package masterMind.models;
 
 import java.util.*;
 
-import masterMind.utils.Direction;
-
 class Board {
 
-	ArrayList<Permutation> permutations;
+	ArrayList<Result> attemps;
 
 	Permutation secretCode;
+
+	Result lastResult;
 
 	int MAX_TURNS = 10;
 
 	public Board(){
-		this.permutations = new ArrayList<Permutation>();
+		this.attemps = new ArrayList<Result>();
 		this.secretCode = new Permutation();
 		this.secretCode.random();
 	}
 
 	public boolean endGame(){
-		return permutations.size()==MAX_TURNS || isBrokenSecretCode();
+		return attemps.size()==MAX_TURNS || isBrokenSecretCode();
 	}
 
-	public int getPermutations(){
-		return permutations.size();
+	public int getAttemps(){
+		return attemps.size();
 	}
 
-	public void introducirJugada(Jugada jugada) {
-		jugadas.add(jugada);
+	public void tryCode(Permutation code) {
+		lastResult = new Result(secretCode,code);
+		attemps.add(lastResult);
 	}
 
 	boolean isBrokenSecretCode() {
 		return false;
 	}
 
-	void put(Permutation permutation) {
-		assert permutation != null;
-		permutations.add(permutation);
-	}
-
-
-
 	void clear() {
-		this.permutations = new ArrayList<Permutation>();
+		this.attemps = new ArrayList<Result>();
 		this.secretCode = new Permutation();
 		this.secretCode.random();
 	}
