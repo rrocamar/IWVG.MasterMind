@@ -1,14 +1,13 @@
 package masterMind.views;
 
 import masterMind.controllers.ContinueController;
-import masterMind.controllers.CoordinateController;
+import masterMind.controllers.PermutationController;
 import masterMind.controllers.Error;
-import masterMind.controllers.MoveController;
 import masterMind.controllers.OperationController;
 import masterMind.controllers.PutController;
-import masterMind.controllers.RandomCoordinateController;
+import masterMind.controllers.RandomPermutationController;
 import masterMind.controllers.StartController;
-import masterMind.controllers.UserCoordinateController;
+import masterMind.controllers.UserPermutationController;
 import masterMind.models.Coordinate;
 import masterMind.utils.IO;
 import masterMind.utils.LimitedIntDialog;
@@ -24,15 +23,15 @@ public class TicTacToeView {
 			this.interact((StartController) controller);
 		} else if (controller instanceof PutController) {
 			this.interact((PutController) controller);
-		} else if (controller instanceof MoveController) {
-			this.interact((MoveController) controller);
 		} else if (controller instanceof ContinueController) {
 			this.interact((ContinueController) controller);
 		}
 	}
 
 	private void interact(StartController startController) {
-		int users = new LimitedIntDialog("Cuántos usuarios?", 0, 2).read();
+		io.writeln("1. Partida");
+		io.writeln("2. Demo");
+		int users = new LimitedIntDialog("Opción?", 0, 2).read();
 		startController.setUsers(users);
 		new BoardView(startController).write();
 	}
@@ -44,7 +43,7 @@ public class TicTacToeView {
 		Error error = null;
 		do {
 			target = this.getTarget("En",
-					putController.getCoordinateController());
+					putController.getPermutationController());
 			error = putController.validateTarget(target);
 			if (error != null) {
 				io.writeln("" + error);
@@ -58,80 +57,50 @@ public class TicTacToeView {
 	}
 
 	private Coordinate getTarget(String title,
-			CoordinateController coordinateController) {
-		if (coordinateController instanceof UserCoordinateController) {
+			PermutationController permutationController) {
+		if (permutationController instanceof UserPermutationController) {
 			return this.getTarget(title,
-					(UserCoordinateController) coordinateController);
-		} else if (coordinateController instanceof RandomCoordinateController) {
+					(UserPermutationController) permutationController);
+		} else if (permutationController instanceof RandomPermutationController) {
 			return this.getTarget(title,
-					(RandomCoordinateController) coordinateController);
+					(RandomPermutationController) permutationController);
 		}
 		return null;
 	}
 
 	private Coordinate getTarget(String title,
-			UserCoordinateController coordinateController) {
+			UserPermutationController coordinateController) {
 		Coordinate coordinate = coordinateController.getTarget();
 		new CoordinateView(title, coordinate).read();
 		return coordinate;
 	}
 
 	private Coordinate getTarget(String title,
-			RandomCoordinateController coordinateController) {
+			RandomPermutationController coordinateController) {
 		Coordinate coordinate = coordinateController.getTarget();
 		new CoordinateView("La máquina pone en ", coordinate).write();
 		io.readString(". Pulse enter para continuar");
 		return coordinate;
 	}
 
-	private void interact(MoveController moveController) {
-		ColorView colorView = new ColorView(moveController.take());
-		colorView.writeln("Mueve el jugador ");
-		Coordinate origin;
-		Error error = null;
-		do {
-			origin = this.getOrigin(moveController.getCoordinateController());
-			error = moveController.validateOrigin(origin);
-			if (error != null) {
-				io.writeln("" + error);
-			}
-		} while (error != null);
-		moveController.remove(origin);
-		Coordinate target;
-		error = null;
-		do {
-			target = this.getTarget("A",
-					moveController.getCoordinateController(), origin);
-			error = moveController.validateTarget(origin, target);
-			if (error != null) {
-				io.writeln("" + error);
-			}
-		} while (error != null);
-		moveController.put(target);
-		new BoardView(moveController).write();
-		if (moveController.existTicTacToe()) {
-			colorView.writeWinner();
-		}
-	}
-
-	private Coordinate getOrigin(CoordinateController coordinateController) {
-		if (coordinateController instanceof UserCoordinateController) {
+	private Coordinate getOrigin(PermutationController permutationController) {
+		if (permutationController instanceof UserPermutationController) {
 			return this
-					.getOrigin((UserCoordinateController) coordinateController);
-		} else if (coordinateController instanceof RandomCoordinateController) {
+					.getOrigin((UserPermutationController) permutationController);
+		} else if (permutationController instanceof RandomPermutationController) {
 			return this
-					.getOrigin((RandomCoordinateController) coordinateController);
+					.getOrigin((RandomPermutationController) permutationController);
 		}
 		return null;
 	}
 
-	private Coordinate getOrigin(UserCoordinateController coordinateController) {
+	private Coordinate getOrigin(UserPermutationController coordinateController) {
 		Coordinate coordinate = coordinateController.getOrigin();
 		new CoordinateView("De", coordinate).read();
 		return coordinate;
 	}
 
-	private Coordinate getOrigin(RandomCoordinateController coordinateController) {
+	private Coordinate getOrigin(RandomPermutationController coordinateController) {
 		Coordinate coordinate = coordinateController.getOrigin();
 		new CoordinateView("La máquina quita de ", coordinate).write();
 		io.readString(". Pulse enter para continuar");
@@ -139,19 +108,19 @@ public class TicTacToeView {
 	}
 
 	private Coordinate getTarget(String title,
-			CoordinateController coordinateController, Coordinate origin) {
-		if (coordinateController instanceof UserCoordinateController) {
+								 PermutationController permutationController, Coordinate origin) {
+		if (permutationController instanceof UserPermutationController) {
 			return this.getTarget(title,
-					(UserCoordinateController) coordinateController);
-		} else if (coordinateController instanceof RandomCoordinateController) {
+					(UserPermutationController) permutationController);
+		} else if (permutationController instanceof RandomPermutationController) {
 			return this.getTarget(title,
-					(RandomCoordinateController) coordinateController, origin);
+					(RandomPermutationController) permutationController, origin);
 		}
 		return null;
 	}
 
 	private Coordinate getTarget(String title,
-			RandomCoordinateController coordinateController, Coordinate origin) {
+								 RandomPermutationController coordinateController, Coordinate origin) {
 		Coordinate coordinate = coordinateController.getTarget(origin);
 		new CoordinateView("La máquina pone en ", coordinate).write();
 		io.readString(". Pulse enter para continuar");

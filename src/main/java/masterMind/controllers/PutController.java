@@ -5,8 +5,8 @@ import masterMind.models.Game;
 
 public class PutController extends ColocateController {
 
-	PutController(Game game, CoordinateController coordinateController) {
-		super(game, coordinateController);
+	PutController(Game game, PermutationController permutationController) {
+		super(game, permutationController);
 	}
 
 	@Override

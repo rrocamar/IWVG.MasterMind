@@ -1,28 +1,20 @@
 package masterMind.controllers;
 
-import masterMind.models.Coordinate;
 import masterMind.models.Game;
 
 abstract class ColocateController extends OperationController {
 
-	private CoordinateController coordinateController;
+	private PermutationController permutationController;
 
 	protected ColocateController(Game game, 
-			CoordinateController coordinateController) {
+			PermutationController permutationController) {
 		super(game);
-		assert coordinateController != null;
-		this.coordinateController = coordinateController;
-	}
-	
-	protected Error validateTarget(Coordinate target) {
-		if (!this.empty(target)) {
-			return Error.NOT_EMPTY;
-		}
-		return null;
+		assert permutationController != null;
+		this.permutationController = permutationController;
 	}
 
-	public CoordinateController getCoordinateController(){
-		return coordinateController;
+	public PermutationController getPermutationController(){
+		return permutationController;
 	}
 
 }

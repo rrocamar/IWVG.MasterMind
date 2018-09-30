@@ -3,9 +3,9 @@ package masterMind.controllers;
 import masterMind.models.Coordinate;
 import masterMind.models.Game;
 
-public class UserCoordinateController extends CoordinateController {
+public class UserPermutationController extends PermutationController {
 
-	protected UserCoordinateController(Game game) {
+	protected UserPermutationController(Game game) {
 		super(game);
 	}
 

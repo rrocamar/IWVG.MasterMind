@@ -6,7 +6,7 @@ public class Logic {
 
 	private Game game;
 
-	private ColocateControllerBuilder colocateControllerBuilder;
+	private ColocateController colocateController;
 	
 	private StartController startController;
 
@@ -14,8 +14,8 @@ public class Logic {
 
 	public Logic() {
 		game = new Game();
-		colocateControllerBuilder = new ColocateControllerBuilder(game);
-		startController = new StartController(game, colocateControllerBuilder);
+		startController = new StartController(game);
+		colocateController = new ColocateControllerBuilder(game);
 		continueController = new ContinueController(game);
 	}
 

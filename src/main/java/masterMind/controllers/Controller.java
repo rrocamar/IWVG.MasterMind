@@ -1,9 +1,6 @@
 package masterMind.controllers;
 
-import masterMind.models.Color;
-import masterMind.models.Coordinate;
-import masterMind.models.Game;
-import masterMind.models.State;
+import masterMind.models.*;
 
 public abstract class Controller {
 
@@ -27,38 +24,18 @@ public abstract class Controller {
 		game.setState(state);
 	}
 	
-	public Color take() {
-		return game.take();
-	}
-	
-	protected void put(Coordinate target) {
-		assert target != null;
-		game.put(target);
-		if (game.existTicTacToe()) {
+	protected void put(Permutation permutation) {
+		assert permutation != null;
+		game.put(permutation);
+		if (game.isBrokenSecretCode()) {
 			game.setState(State.FINAL);
-		} else {
-			game.change();
 		}
-	}
-	
-	protected void remove(Coordinate origin) {
-		assert origin != null;
-		game.remove(origin);
 	}
 	
 	protected void clear() {
 		game.clear();		
 	}	
-	
-	protected boolean empty(Coordinate coordinate) {
-		assert coordinate != null;
-		return game.empty(coordinate);
-	}
-	
-	protected boolean full(Coordinate coordinate) {
-		assert coordinate != null;
-		return game.full(coordinate);
-	}
+
 	
 	public boolean existTicTacToe() {
 		return game.existTicTacToe();
