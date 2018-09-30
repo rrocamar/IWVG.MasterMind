@@ -1,7 +1,6 @@
 package masterMind.views;
 
 import masterMind.models.Permutation;
-import masterMind.models.Result;
 import masterMind.utils.IO;
 
 class AttempView {
@@ -15,7 +14,7 @@ class AttempView {
     }
 
     void write(String title) {
-        io.write(title + this.toChar());
+        io.write(title + ": " + attemp.toString());
     }
 
     void writeln(String title) {
@@ -23,12 +22,15 @@ class AttempView {
         io.writeln();
     }
 
-    void writeWinner() {
-        io.writeln("Victoria!!!! " + this.toChar() + "! " + this.toChar()
-                + "! " + this.toChar() + "! Victoria!!!!");
+    void read() {
+        String colors;
+        do {
+            colors = io.readString("Intento? [cuatro letras de entre A-amarillo, R-rojo, V-verde, Z-azul, B-blanco, N-negro]?");
+        } while (false);
+        attemp.random();
     }
 
-    private char toChar() {
-        return COLORS[color.ordinal()];
+    void writeWinner() {
+        io.writeln("Victoria!!!! " + "La clave ha sido descifrada!!" + "! Victoria!!!!");
     }
 }

@@ -2,17 +2,17 @@ package masterMind;
 
 import masterMind.controllers.Logic;
 import masterMind.controllers.OperationController;
-import masterMind.views.MasterMIndView;
+import masterMind.views.MasterMindView;
 
 public class MasterMind {
 
 	private Logic logic;
-	
-	private MasterMIndView view;
+
+	private MasterMindView view;
 	
 	public MasterMind() {
 		logic = new Logic();
-		view = new MasterMIndView();
+		view = new MasterMindView();
 	}
 	
 	public void play() {

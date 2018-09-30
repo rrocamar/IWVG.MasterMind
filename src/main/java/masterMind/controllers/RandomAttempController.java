@@ -13,7 +13,7 @@ public class RandomAttempController extends AttempController {
 	@Override
 	public Permutation getAttemp() {
 		Permutation attemp = new Permutation();
-		attemp.random();;
+        attemp.random();
 		return attemp;
 	}
 }
