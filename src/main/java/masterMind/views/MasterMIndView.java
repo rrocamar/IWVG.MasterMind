@@ -8,6 +8,7 @@ import masterMind.controllers.RandomAttempController;
 import masterMind.controllers.StartController;
 import masterMind.controllers.UserAttempController;
 import masterMind.models.Coordinate;
+import masterMind.models.Permutation;
 import masterMind.utils.IO;
 import masterMind.utils.LimitedIntDialog;
 import masterMind.utils.YesNoDialog;
@@ -34,7 +35,7 @@ public class MasterMIndView {
 		startController.setUsers(users);
 		new BoardView(startController).write();
 	}
-
+/*
 	private void interact(AttempController attempController) {
 		ColorView colorView = new ColorView(attempController.take());
 		colorView.writeln("Pone el jugador ");
@@ -73,13 +74,13 @@ public class MasterMIndView {
 		new CoordinateView(title, coordinate).read();
 		return coordinate;
 	}
-
-	private Coordinate getTarget(String title,
-			RandomAttempController coordinateController) {
-		Coordinate coordinate = coordinateController.getTarget();
-		new CoordinateView("La máquina pone en ", coordinate).write();
+*/
+	private Permutation getAttemp(String title,
+								  RandomAttempController coordinateController) {
+		Permutation attemp = coordinateController.getAttemp();
+		new AttempView("La máquina pone: ", attemp).write();
 		io.readString(". Pulse enter para continuar");
-		return coordinate;
+		return attemp;
 	}
 
 	private Coordinate getOrigin(AttempController attempController) {
