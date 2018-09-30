@@ -73,4 +73,12 @@ public class Permutation implements Cloneable{
     public int size(){
         return this.colors.size();
     }
+
+    @Override
+    public String toString() {
+        String result = "[";
+        for (Color color : colors)
+            result += color.getDescripcion() + ", ";
+        return result + "]";
+    }
 }

@@ -32,7 +32,7 @@ class Board {
 	}
 
 	boolean isBrokenSecretCode() {
-		return false;
+		return lastResult.getDead() == secretCode.size();
 	}
 
 	void clear() {
@@ -41,4 +41,7 @@ class Board {
 		this.secretCode.random();
 	}
 
+	public Result getLastResult() {
+		return lastResult;
+	}
 }

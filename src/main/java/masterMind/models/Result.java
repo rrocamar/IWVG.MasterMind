@@ -17,7 +17,9 @@ public class Result {
         this.injured = 0;
         this.dead = 0;
         this.secretCode = secretCode;
+        this.tryCode = tryCode;
         this.sizeOfCode = this.secretCode.size();
+        this.compare();
     }
 
     private void compare(){

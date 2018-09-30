@@ -30,6 +30,10 @@ public abstract class Controller {
 			game.setState(State.FINAL);
 		}
 	}
+
+    public Result getLastResult() {
+        return game.getLastResult();
+    }
 	
 	protected void clear() {
 		game.clear();		
@@ -41,6 +45,9 @@ public abstract class Controller {
 	
 	public boolean isBrokenSecretCode() {
 		return game.isBrokenSecretCode();
-	}	
+    }
 
+    public String getSecret() {
+        return game.getSecret();
+    }
 }

@@ -15,13 +15,11 @@ class BoardView {
 
 	void write() {
 		IO io = new IO();
-		for(Result result:controller.getAttemps()){
-			/*
-				new ColorView(controller. ))
-						.write(" ");
-			*/
-			}
-			io.writeln();
-		}
-	}
+		Result result = controller.getLastResult();
+		if (result != null)
+			io.writeln("Heridos: " + result.getInjured() + " . Muertos: " + result.getDead());
+		else
+			io.writeln(controller.getSecret());
 
+	}
+}

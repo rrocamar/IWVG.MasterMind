@@ -36,4 +36,12 @@ public class Game {
 	public ArrayList<Result> getAttemps() {
 		return board.getAttemps();
 	}
+
+	public Result getLastResult() {
+		return board.getLastResult();
+	}
+
+	public String getSecret() {
+		return board.secretCode.toString();
+	}
 }
