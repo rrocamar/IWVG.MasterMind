@@ -22,4 +22,9 @@ class BoardView {
 			io.writeln(controller.getSecret());
 
 	}
+
+	void writeWinner() {
+		IO io = new IO();
+		io.writeln("Victoria!!!! " + "La clave ha sido descifrada!!" + "! Victoria!!!!");
+	}
 }

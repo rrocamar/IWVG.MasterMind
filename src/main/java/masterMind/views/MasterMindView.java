@@ -37,48 +37,38 @@ public class MasterMindView {
 	}
 
 	private void interact(AttempController attempController) {
-		Permutation attemp = attempController.getAttemp();
-		AttempView attempView = new AttempView(attempController.getNumberOfAttemps(), attemp);
-		//attempView.writeln("Pone el jugador ");
-		attempView.read();
-		//new AttempView(attemp).read();
-		attempController.tryCode(attemp);
-		new BoardView(attempController).write();
+		Permutation attemp = this.getAttemp(attempController);
+		BoardView boardView = new BoardView(attempController);
+		boardView.write();
 		if (attempController.isBrokenSecretCode()) {
-			attempView.writeWinner();
+			boardView.writeWinner();
 		}
-	}
-
-	private Permutation getAttemp(String title,
-								  AttempController attempController) {
-		if (attempController instanceof UserAttempController) {
-			return this.getAttemp(title,
-					(UserAttempController) attempController);
-		} else if (attempController instanceof RandomAttempController) {
-			return this.getAttemp(title,
-					(RandomAttempController) attempController);
-		}
-		return null;
-	}
-
-
-	private Permutation getAttemp(String title,
-								  RandomAttempController coordinateController) {
-		Permutation attemp = coordinateController.getAttemp();
-		new AttempView(coordinateController.getNumberOfAttemps(), attemp).write("La máquina pone: ");
-		io.readString(". Pulse enter para continuar");
-		return attemp;
 	}
 
 	private Permutation getAttemp(AttempController attempController) {
 		if (attempController instanceof UserAttempController) {
-			return this
-					.getAttemp((UserAttempController) attempController);
+			return this.getAttemp((UserAttempController) attempController);
 		} else if (attempController instanceof RandomAttempController) {
-			return this
-					.getAttemp((RandomAttempController) attempController);
+			return this.getAttemp((RandomAttempController) attempController);
 		}
 		return null;
+	}
+
+
+	private Permutation getAttemp(RandomAttempController attempController) {
+		Permutation attemp = attempController.getAttemp();
+		attemp.random();
+		io.write("La máquina pone: " + attemp);
+		io.readString(". Pulse enter para continuar");
+		return attemp;
+	}
+
+	private Permutation getAttemp(UserAttempController attempController) {
+		Permutation attemp = attempController.getAttemp();
+		AttempView attempView = new AttempView(attempController.getNumberOfAttemps(), attemp);
+		attempView.read();
+		attempController.tryCode(attemp);
+		return attemp;
 	}
 
 

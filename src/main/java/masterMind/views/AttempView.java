@@ -64,7 +64,4 @@ class AttempView {
 
     }
 
-    void writeWinner() {
-        io.writeln("Victoria!!!! " + "La clave ha sido descifrada!!" + "! Victoria!!!!");
-    }
 }
