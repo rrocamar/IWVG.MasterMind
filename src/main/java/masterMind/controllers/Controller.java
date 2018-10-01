@@ -1,9 +1,8 @@
 package masterMind.controllers;
 
-import masterMind.models.Color;
-import masterMind.models.Coordinate;
-import masterMind.models.Game;
-import masterMind.models.State;
+import masterMind.models.*;
+
+import java.util.ArrayList;
 
 public abstract class Controller {
 
@@ -13,10 +12,7 @@ public abstract class Controller {
 		assert game != null;
 		this.game = game;
 	}
-	
-	protected int numPlayers() {
-		return game.getNumPlayers();
-	}
+
 	
 	protected State getState(){
 		return game.getState();
@@ -27,46 +23,43 @@ public abstract class Controller {
 		game.setState(state);
 	}
 	
-	public Color take() {
-		return game.take();
-	}
-	
-	protected void put(Coordinate target) {
-		assert target != null;
-		game.put(target);
-		if (game.existTicTacToe()) {
+	public void tryCode(Permutation attemp) {
+		assert attemp != null;
+		game.tryCode(attemp);
+        if (game.isBrokenSecretCode() || !game.moreAttemps()) {
 			game.setState(State.FINAL);
-		} else {
-			game.change();
 		}
 	}
-	
-	protected void remove(Coordinate origin) {
-		assert origin != null;
-		game.remove(origin);
-	}
+
+    public Result getLastResult() {
+        return game.getLastResult();
+    }
 	
 	protected void clear() {
 		game.clear();		
 	}	
-	
-	protected boolean empty(Coordinate coordinate) {
-		assert coordinate != null;
-		return game.empty(coordinate);
+
+	public ArrayList<Result> getAttemps(){
+		return  this.game.getAttemps();
 	}
-	
-	protected boolean full(Coordinate coordinate) {
-		assert coordinate != null;
-		return game.full(coordinate);
-	}
-	
-	public boolean existTicTacToe() {
-		return game.existTicTacToe();
-	}	
-	
-	public Color getColor(Coordinate coordinate){
-		assert coordinate != null;
-		return game.getColor(coordinate);
-	}
-	
+
+    public int getNumberOfAttemp() {
+        return getAttemps().size() + 1;
+    }
+
+	public boolean isBrokenSecretCode() {
+		return game.isBrokenSecretCode();
+    }
+
+    public String getSecret() {
+        return game.getSecret();
+    }
+
+    protected void setMode(Mode mode) {
+        this.game.setMode(mode);
+    }
+
+    public boolean moreAttemps() {
+        return game.moreAttemps();
+    }
 }

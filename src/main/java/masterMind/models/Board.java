@@ -1,92 +1,51 @@
 package masterMind.models;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import masterMind.utils.Direction;
+import java.util.*;
 
 class Board {
 
-	private Map<Color, Set<Coordinate>> coordinates;
+	ArrayList<Result> attemps;
 
-	Board(int numPlayers) {
-		assert numPlayers > 0;
-		coordinates = new HashMap<>();
-		for (int i = 0; i < numPlayers; i++) {
-			coordinates.put(Color.values()[i], new HashSet<>());
-		}
+	Permutation secretCode;
+
+	Result lastResult;
+
+	int MAX_TURNS = 10;
+
+	public Board(){
+		this.attemps = new ArrayList<Result>();
+		this.secretCode = new Permutation();
+		this.secretCode.random();
 	}
 
-	Color getColor(Coordinate coordinate) {
-		assert coordinate != null;
-		for (Color color : coordinates.keySet()) {
-			if (coordinates.get(color).contains(coordinate)) {
-				return color;
-			}
-		}
-		return Color.NONE;
+	public boolean endGame(){
+		return attemps.size()==MAX_TURNS || isBrokenSecretCode();
 	}
 
-	boolean complete() {
-		int contTokens = 0;
-		for (Color color : coordinates.keySet()) {
-			contTokens += coordinates.get(color).size();
-		}
-		return contTokens == Coordinate.DIMENSION
-				* coordinates.keySet().size();
+	public ArrayList<Result> getAttemps(){
+		return attemps;
 	}
 
-	boolean existTicTacToe(Color color) {
-		assert color != Color.NONE;
-		Set<Coordinate> coordinateSet = coordinates.get(color);
-		if (coordinateSet.size() != Coordinate.DIMENSION) {
-			return false;
-		}
-		Coordinate[] coordinateArray = coordinateSet
-				.toArray(new Coordinate[0]);
-		Direction direction = coordinateArray[0].direction(coordinateArray[1]);
-		if (direction == Direction.NON_EXISTENT) {
-			return false;
-		}
-		for (int i = 1; i < Coordinate.DIMENSION - 1; i++) {
-			if (coordinateArray[i].direction(coordinateArray[i + 1]) != direction) {
-				return false;
-			}
-		}
-		return true;
+	public void tryCode(Permutation code) {
+		lastResult = new Result(secretCode,code);
+		attemps.add(lastResult);
 	}
 
-	boolean empty(Coordinate coordinate) {
-		assert coordinate != null;
-		return !this.full(coordinate, Color.XS)
-				&& !this.full(coordinate, Color.OS);
-	}
-
-	void put(Coordinate coordinate, Color color) {
-		assert coordinate != null;
-		assert color != Color.NONE;
-		assert color != null;
-		coordinates.get(color).add(coordinate.clone());
-	}
-
-	void remove(Coordinate coordinate, Color color) {
-		assert coordinate != null;
-		assert color != Color.NONE;
-		coordinates.get(color).remove(coordinate);
-	}
-
-	boolean full(Coordinate coordinate, Color color) {
-		assert coordinate != null;
-		assert color != Color.NONE;
-		return coordinates.get(color).contains(coordinate);
+	boolean isBrokenSecretCode() {
+		return lastResult.getDead() == secretCode.size();
 	}
 
 	void clear() {
-		for (Color color : coordinates.keySet()) {
-			coordinates.get(color).clear();
-		}		
+		this.attemps = new ArrayList<Result>();
+		this.secretCode = new Permutation();
+		this.secretCode.random();
 	}
 
+	public Result getLastResult() {
+		return lastResult;
+	}
+
+	public boolean isFull() {
+		return getAttemps().size() >= MAX_TURNS;
+	}
 }

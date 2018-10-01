@@ -1,12 +1,13 @@
 package masterMind.controllers;
 
 import masterMind.models.Game;
+import masterMind.models.Mode;
 
 public class Logic {
 
 	private Game game;
 
-	private ColocateControllerBuilder colocateControllerBuilder;
+	private AttempController attempsController;
 	
 	private StartController startController;
 
@@ -14,8 +15,7 @@ public class Logic {
 
 	public Logic() {
 		game = new Game();
-		colocateControllerBuilder = new ColocateControllerBuilder(game);
-		startController = new StartController(game, colocateControllerBuilder);
+		startController = new StartController(game);
 		continueController = new ContinueController(game);
 	}
 
@@ -24,7 +24,13 @@ public class Logic {
 		case INITIAL:
 			return startController;
 		case IN_GAME:
-			return colocateControllerBuilder.getColocateController();
+			if (attempsController == null) {
+				if (game.getMode().equals(Mode.DEMO))
+					attempsController = new RandomAttempController(game);
+				else
+					attempsController = new UserAttempController(game);
+			}
+			return attempsController;
 		case FINAL:
 			return continueController;
 		case EXIT:

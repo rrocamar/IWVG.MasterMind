@@ -1,19 +1,18 @@
 package masterMind.models;
 
+import java.util.ArrayList;
+
 public class Game {
 
 	private State state;
-	
-	private Turn turn;
 
 	private Board board;
-	
-	private static final int NUM_PLAYERS = 2;
-	
+
+    private Mode mode;
+
 	public Game() {
 		state = State.INITIAL;
-		turn = new Turn();
-		board = new Board(Game.NUM_PLAYERS);
+		board = new Board();
 	}
 	
 	public State getState() {
@@ -23,49 +22,40 @@ public class Game {
 	public void setState(State state){
 		this.state = state;
 	}
-	
-	public Color take() {
-		return turn.take();
-	}
-	
-	public void change() {
-		turn.change();
-	}
-	
-	public boolean full(Coordinate origin) {
-		return board.full(origin, turn.take());
-	}
-	
-	public boolean empty(Coordinate target) {
-		return board.empty(target);
-	}	
-	
-	public int getNumPlayers() {
-		return NUM_PLAYERS;
-	}
-	
-	public void put(Coordinate target) {
-		board.put(target, turn.take());
-	}
 
-	public void remove(Coordinate origin) {
-		board.remove(origin, turn.take());
+	public void tryCode(Permutation attemp) {
+		board.tryCode(attemp);
 	}
 
 	public void clear() {
 		board.clear();		
 	}
 
-	public boolean complete() {
-		return board.complete();
-	}
-	
-	public boolean existTicTacToe() {
-		return board.existTicTacToe(turn.take());
+	public boolean isBrokenSecretCode() {
+		return board.isBrokenSecretCode();
 	}
 
-	public Color getColor(Coordinate coordinate) {
-		return board.getColor(coordinate);
+	public ArrayList<Result> getAttemps() {
+		return board.getAttemps();
 	}
-	
+
+	public Result getLastResult() {
+		return board.getLastResult();
+	}
+
+	public String getSecret() {
+		return board.secretCode.toString();
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public boolean moreAttemps() {
+		return !board.isFull();
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
 }

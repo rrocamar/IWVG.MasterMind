@@ -1,7 +1,7 @@
 package masterMind.views;
 
 import masterMind.controllers.OperationController;
-import masterMind.models.Coordinate;
+import masterMind.models.Result;
 import masterMind.utils.IO;
 
 class BoardView {
@@ -15,12 +15,23 @@ class BoardView {
 
 	void write() {
 		IO io = new IO();
-		for (int i = 0; i < Coordinate.DIMENSION; i++) {
-			for (int j = 0; j < Coordinate.DIMENSION; j++) {
-				new ColorView(controller.getColor(new Coordinate(i, j)))
-						.write(" ");
-			}
-			io.writeln();
-		}
+		Result result = controller.getLastResult();
+		if (result != null)
+			io.writeln("Heridos: " + result.getInjured() + " . Muertos: " + result.getDead());
+		else
+			io.writeln("Generado codigo secreto. 4 colores. ****");
+
 	}
+
+	void writeWinner() {
+		IO io = new IO();
+		io.writeln("Victoria!!!! " + "La clave ha sido descifrada!!" + "! Victoria!!!!");
+	}
+
+	void writeLoser(String secretCode) {
+		IO io = new IO();
+		io.writeln("Lo sentimos. Ha agotado el numero de intentos. La clave era: " + secretCode);
+		io.writeln("	Vuelva a intentarlo.");
+	}
+
 }
