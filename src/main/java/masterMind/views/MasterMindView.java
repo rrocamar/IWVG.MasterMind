@@ -38,11 +38,17 @@ public class MasterMindView {
 
 	private void interact(AttempController attempController) {
 		Permutation attemp = this.getAttemp(attempController);
+        attempController.tryCode(attemp);
 		BoardView boardView = new BoardView(attempController);
 		boardView.write();
 		if (attempController.isBrokenSecretCode()) {
 			boardView.writeWinner();
 		}
+		/*else
+			if(!attempController.isMoreAttemps()){
+				boardView.writeWinner();
+			}
+				*/
 	}
 
 	private Permutation getAttemp(AttempController attempController) {
@@ -67,7 +73,6 @@ public class MasterMindView {
 		Permutation attemp = attempController.getAttemp();
 		AttempView attempView = new AttempView(attempController.getNumberOfAttemps(), attemp);
 		attempView.read();
-		attempController.tryCode(attemp);
 		return attemp;
 	}
 
