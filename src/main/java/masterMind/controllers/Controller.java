@@ -43,8 +43,8 @@ public abstract class Controller {
 		return  this.game.getAttemps();
 	}
 
-    public int getNumberOfAttemps() {
-        return getAttemps().size();
+    public int getNumberOfAttemp() {
+        return getAttemps().size() + 1;
     }
 
 	public boolean isBrokenSecretCode() {

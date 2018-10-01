@@ -60,14 +60,14 @@ public class MasterMindView {
 	private Permutation getAttemp(RandomAttempController attempController) {
 		Permutation attemp = attempController.getAttemp();
 		attemp.random();
-		io.write("Intento " + attempController.getNumberOfAttemps() + ".La máquina pone: " + attemp);
+		io.write("Intento " + attempController.getNumberOfAttemp() + ".La máquina pone: " + attemp);
 		io.readString(". Pulse enter para continuar");
 		return attemp;
 	}
 
 	private Permutation getAttemp(UserAttempController attempController) {
 		Permutation attemp = attempController.getAttemp();
-		AttempView attempView = new AttempView(attempController.getNumberOfAttemps(), attemp);
+		AttempView attempView = new AttempView(attempController.getNumberOfAttemp(), attemp);
 		attempView.read();
 		return attemp;
 	}

@@ -19,7 +19,7 @@ class BoardView {
 		if (result != null)
 			io.writeln("Heridos: " + result.getInjured() + " . Muertos: " + result.getDead());
 		else
-			io.writeln(controller.getSecret());
+			io.writeln("Generado codigo secreto. 4 colores. ****");
 
 	}
 
