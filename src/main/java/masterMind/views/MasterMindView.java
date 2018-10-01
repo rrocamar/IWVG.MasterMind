@@ -7,6 +7,7 @@ import masterMind.controllers.OperationController;
 import masterMind.controllers.RandomAttempController;
 import masterMind.controllers.StartController;
 import masterMind.controllers.UserAttempController;
+import masterMind.models.Mode;
 import masterMind.models.Permutation;
 import masterMind.utils.IO;
 import masterMind.utils.LimitedIntDialog;
@@ -30,8 +31,8 @@ public class MasterMindView {
 	private void interact(StartController startController) {
 		io.writeln("1. Partida");
 		io.writeln("2. Demo");
-		int users = new LimitedIntDialog("Opción?", 1, 2).read();
-		startController.setUsers(users);
+		int mode = new LimitedIntDialog("Opción?", 1, 2).read();
+		startController.setMode(mode == 1 ? Mode.PLAYER : Mode.DEMO);
 		new BoardView(startController).write();
 	}
 

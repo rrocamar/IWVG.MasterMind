@@ -54,4 +54,8 @@ public abstract class Controller {
     public String getSecret() {
         return game.getSecret();
     }
+
+    protected void setMode(Mode mode) {
+        this.game.setMode(mode);
+    }
 }

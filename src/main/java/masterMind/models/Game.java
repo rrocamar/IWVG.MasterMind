@@ -47,5 +47,11 @@ public class Game {
 		return board.secretCode.toString();
 	}
 
+	public Mode getMode() {
+		return mode;
+	}
 
+	public void setMode(Mode mode) {
+		this.mode = mode;
+	}
 }

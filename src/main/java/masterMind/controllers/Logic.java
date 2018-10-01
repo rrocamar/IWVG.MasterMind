@@ -1,6 +1,7 @@
 package masterMind.controllers;
 
 import masterMind.models.Game;
+import masterMind.models.Mode;
 
 public class Logic {
 
@@ -15,7 +16,6 @@ public class Logic {
 	public Logic() {
 		game = new Game();
 		startController = new StartController(game);
-        attempsController = new UserAttempController(game);
 		continueController = new ContinueController(game);
 	}
 
@@ -24,6 +24,12 @@ public class Logic {
 		case INITIAL:
 			return startController;
 		case IN_GAME:
+			if (attempsController == null) {
+				if (game.getMode().equals(Mode.DEMO))
+					attempsController = new RandomAttempController(game);
+				else
+					attempsController = new UserAttempController(game);
+			}
 			return attempsController;
 		case FINAL:
 			return continueController;
