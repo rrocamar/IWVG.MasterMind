@@ -7,7 +7,9 @@ public class Game {
 	private State state;
 
 	private Board board;
-	
+
+    private Mode mode;
+
 	public Game() {
 		state = State.INITIAL;
 		board = new Board();
@@ -44,4 +46,6 @@ public class Game {
 	public String getSecret() {
 		return board.secretCode.toString();
 	}
+
+
 }
