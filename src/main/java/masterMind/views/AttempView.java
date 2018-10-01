@@ -8,11 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class AttempView {
+
     private Permutation attemp;
+
+    private int numberOfAttemps;
 
     private IO io;
 
-    AttempView(Permutation attemp) {
+    AttempView(int numberOfAttemps, Permutation attemp) {
+        this.numberOfAttemps = numberOfAttemps;
         this.attemp = attemp;
         io = new IO();
     }
@@ -31,7 +35,7 @@ class AttempView {
         Pattern pattern = Pattern.compile("([ARVZBN]){4}");
         Matcher matcher;
         do {
-            colors = io.readString("Intento? [cuatro letras de entre A-amarillo, R-rojo, V-verde, Z-azul, B-blanco, N-negro]?");
+            colors = io.readString("Intento: " + numberOfAttemps + " [cuatro letras de entre A-amarillo, R-rojo, V-verde, Z-azul, B-blanco, N-negro]?");
             matcher = pattern.matcher(colors);
         } while (!matcher.find());
         for (char color : colors.toCharArray())

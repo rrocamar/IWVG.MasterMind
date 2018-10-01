@@ -36,10 +36,11 @@ public class MasterMindView {
 	}
 
 	private void interact(AttempController attempController) {
-		AttempView attempView = new AttempView(attempController.getAttemp());
-		attempView.writeln("Pone el jugador ");
 		Permutation attemp = attempController.getAttemp();
-		new AttempView(attemp).read();
+		AttempView attempView = new AttempView(attempController.getNumberOfAttemps(), attemp);
+		//attempView.writeln("Pone el jugador ");
+		attempView.read();
+		//new AttempView(attemp).read();
 		attempController.tryCode(attemp);
 		new BoardView(attempController).write();
 		if (attempController.isBrokenSecretCode()) {
@@ -59,17 +60,11 @@ public class MasterMindView {
 		return null;
 	}
 
-	private Permutation getAttemp(String title,
-								  UserAttempController coordinateController) {
-		Permutation coordinate = coordinateController.getAttemp();
-		new AttempReadView(title, coordinate).read();
-		return coordinate;
-	}
 
 	private Permutation getAttemp(String title,
 								  RandomAttempController coordinateController) {
 		Permutation attemp = coordinateController.getAttemp();
-		new AttempView(attemp).write("La máquina pone: ");
+		new AttempView(coordinateController.getNumberOfAttemps(), attemp).write("La máquina pone: ");
 		io.readString(". Pulse enter para continuar");
 		return attemp;
 	}

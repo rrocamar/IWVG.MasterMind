@@ -1,6 +1,5 @@
 package masterMind.controllers;
 
-import masterMind.models.Coordinate;
 import masterMind.models.Game;
 import masterMind.models.Permutation;
 

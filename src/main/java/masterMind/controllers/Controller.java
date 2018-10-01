@@ -42,7 +42,11 @@ public abstract class Controller {
 	public ArrayList<Result> getAttemps(){
 		return  this.game.getAttemps();
 	}
-	
+
+    public int getNumberOfAttemps() {
+        return getAttemps().size();
+    }
+
 	public boolean isBrokenSecretCode() {
 		return game.isBrokenSecretCode();
     }
