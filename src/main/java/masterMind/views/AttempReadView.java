@@ -25,6 +25,7 @@ class AttempReadView {
 		String colors;
 		do {
 			colors = io.readString("Intento? [cuatro letras de entre A-amarillo, R-rojo, V-verde, Z-azul, B-blanco, N-negro]?");
+
 		} while (false);
 		//attemp.add();
 	}
