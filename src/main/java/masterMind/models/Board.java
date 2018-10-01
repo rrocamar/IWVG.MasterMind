@@ -44,4 +44,8 @@ class Board {
 	public Result getLastResult() {
 		return lastResult;
 	}
+
+	public boolean isFull() {
+		return getAttemps().size() >= MAX_TURNS;
+	}
 }

@@ -7,7 +7,9 @@ public class Game {
 	private State state;
 
 	private Board board;
-	
+
+    private Mode mode;
+
 	public Game() {
 		state = State.INITIAL;
 		board = new Board();
@@ -43,5 +45,17 @@ public class Game {
 
 	public String getSecret() {
 		return board.secretCode.toString();
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public boolean moreAttemps() {
+		return !board.isFull();
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
 	}
 }

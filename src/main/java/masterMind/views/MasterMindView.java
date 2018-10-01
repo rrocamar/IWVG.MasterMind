@@ -2,11 +2,11 @@ package masterMind.views;
 
 import masterMind.controllers.ContinueController;
 import masterMind.controllers.AttempController;
-import masterMind.controllers.Error;
 import masterMind.controllers.OperationController;
 import masterMind.controllers.RandomAttempController;
 import masterMind.controllers.StartController;
 import masterMind.controllers.UserAttempController;
+import masterMind.models.Mode;
 import masterMind.models.Permutation;
 import masterMind.utils.IO;
 import masterMind.utils.LimitedIntDialog;
@@ -30,59 +30,46 @@ public class MasterMindView {
 	private void interact(StartController startController) {
 		io.writeln("1. Partida");
 		io.writeln("2. Demo");
-		int users = new LimitedIntDialog("Opción?", 0, 2).read();
-		startController.setUsers(users);
+		int mode = new LimitedIntDialog("Opción?", 1, 2).read();
+		startController.setMode(mode == 1 ? Mode.PLAYER : Mode.DEMO);
 		new BoardView(startController).write();
 	}
 
 	private void interact(AttempController attempController) {
-		AttempView attempView = new AttempView(attempController.getAttemp());
-		attempView.writeln("Pone el jugador ");
-		Permutation attemp = attempController.getAttemp();
+		Permutation attemp = this.getAttemp(attempController);
+        attempController.tryCode(attemp);
+		BoardView boardView = new BoardView(attempController);
+		boardView.write();
+		if (attempController.isBrokenSecretCode())
+			boardView.writeWinner();
+		else if (!attempController.moreAttemps())
+			boardView.writeLoser(attempController.getSecret());
 
-		attempController.tryCode(attemp);
-		new BoardView(attempController).write();
-		if (attempController.isBrokenSecretCode()) {
-			attempView.writeWinner();
-		}
-	}
-
-	private Permutation getAttemp(String title,
-								  AttempController attempController) {
-		if (attempController instanceof UserAttempController) {
-			return this.getAttemp(title,
-					(UserAttempController) attempController);
-		} else if (attempController instanceof RandomAttempController) {
-			return this.getAttemp(title,
-					(RandomAttempController) attempController);
-		}
-		return null;
-	}
-
-	private Permutation getAttemp(String title,
-								  UserAttempController coordinateController) {
-		Permutation coordinate = coordinateController.getAttemp();
-		new AttempReadView(title, coordinate).read();
-		return coordinate;
-	}
-
-	private Permutation getAttemp(String title,
-								  RandomAttempController coordinateController) {
-		Permutation attemp = coordinateController.getAttemp();
-		new AttempView(attemp).write("La máquina pone: ");
-		io.readString(". Pulse enter para continuar");
-		return attemp;
 	}
 
 	private Permutation getAttemp(AttempController attempController) {
 		if (attempController instanceof UserAttempController) {
-			return this
-					.getAttemp((UserAttempController) attempController);
+			return this.getAttemp((UserAttempController) attempController);
 		} else if (attempController instanceof RandomAttempController) {
-			return this
-					.getAttemp((RandomAttempController) attempController);
+			return this.getAttemp((RandomAttempController) attempController);
 		}
 		return null;
+	}
+
+
+	private Permutation getAttemp(RandomAttempController attempController) {
+		Permutation attemp = attempController.getAttemp();
+		attemp.random();
+		io.write("Intento " + attempController.getNumberOfAttemp() + ".La máquina pone: " + attemp);
+		io.readString(". Pulse enter para continuar");
+		return attemp;
+	}
+
+	private Permutation getAttemp(UserAttempController attempController) {
+		Permutation attemp = attempController.getAttemp();
+		AttempView attempView = new AttempView(attempController.getNumberOfAttemp(), attemp);
+		attempView.read();
+		return attemp;
 	}
 
 

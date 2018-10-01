@@ -2,18 +2,25 @@ package masterMind.models;
 
 public enum Color {
 
-	AMARILLO("Amarillo"),
-	ROJO("Rojo"),
-	VERDE("Verde"),
-	AZUL("Azul"),
-	BLANCO("Blanco"),
-	NEGRO("Negro");
+    AMARILLO("A", "Amarillo"),
+    ROJO("R", "Rojo"),
+    VERDE("V", "Verde"),
+    AZUL("Z", "Azul"),
+    BLANCO("B", "Blanco"),
+    NEGRO("N", "Negro");
 
 	private String descripcion;
 
-	Color(String descripcion){
+    private String codigo;
+
+    Color(String codigo, String descripcion) {
+        this.codigo = codigo;
 		this.descripcion = descripcion;
 	}
+
+    public String getCodigo() {
+        return codigo;
+    }
 
 	public String getDescripcion(){
 		return this.descripcion;
