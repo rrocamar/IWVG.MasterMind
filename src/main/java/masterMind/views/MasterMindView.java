@@ -30,7 +30,7 @@ public class MasterMindView {
 	private void interact(StartController startController) {
 		io.writeln("1. Partida");
 		io.writeln("2. Demo");
-		int users = new LimitedIntDialog("Opción?", 0, 2).read();
+		int users = new LimitedIntDialog("Opción?", 1, 2).read();
 		startController.setUsers(users);
 		new BoardView(startController).write();
 	}
@@ -39,7 +39,7 @@ public class MasterMindView {
 		AttempView attempView = new AttempView(attempController.getAttemp());
 		attempView.writeln("Pone el jugador ");
 		Permutation attemp = attempController.getAttemp();
-
+		new AttempView(attemp).read();
 		attempController.tryCode(attemp);
 		new BoardView(attempController).write();
 		if (attempController.isBrokenSecretCode()) {

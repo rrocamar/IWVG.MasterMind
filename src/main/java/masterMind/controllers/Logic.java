@@ -15,7 +15,7 @@ public class Logic {
 	public Logic() {
 		game = new Game();
 		startController = new StartController(game);
-		attempsController = new RandomAttempController(game);
+        attempsController = new UserAttempController(game);
 		continueController = new ContinueController(game);
 	}
 
