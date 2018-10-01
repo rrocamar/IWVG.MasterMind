@@ -51,6 +51,10 @@ public class Game {
 		return mode;
 	}
 
+	public boolean moreAttemps() {
+		return !board.isFull();
+	}
+
 	public void setMode(Mode mode) {
 		this.mode = mode;
 	}

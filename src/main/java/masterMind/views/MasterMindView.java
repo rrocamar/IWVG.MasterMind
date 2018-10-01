@@ -2,7 +2,6 @@ package masterMind.views;
 
 import masterMind.controllers.ContinueController;
 import masterMind.controllers.AttempController;
-import masterMind.controllers.Error;
 import masterMind.controllers.OperationController;
 import masterMind.controllers.RandomAttempController;
 import masterMind.controllers.StartController;
@@ -41,14 +40,11 @@ public class MasterMindView {
         attempController.tryCode(attemp);
 		BoardView boardView = new BoardView(attempController);
 		boardView.write();
-		if (attempController.isBrokenSecretCode()) {
+		if (attempController.isBrokenSecretCode())
 			boardView.writeWinner();
-		}
-		/*else
-			if(!attempController.isMoreAttemps()){
-				boardView.writeWinner();
-			}
-				*/
+		else if (!attempController.moreAttemps())
+			boardView.writeLoser(attempController.getSecret());
+
 	}
 
 	private Permutation getAttemp(AttempController attempController) {
@@ -64,7 +60,7 @@ public class MasterMindView {
 	private Permutation getAttemp(RandomAttempController attempController) {
 		Permutation attemp = attempController.getAttemp();
 		attemp.random();
-		io.write("La máquina pone: " + attemp);
+		io.write("Intento " + attempController.getNumberOfAttemps() + ".La máquina pone: " + attemp);
 		io.readString(". Pulse enter para continuar");
 		return attemp;
 	}

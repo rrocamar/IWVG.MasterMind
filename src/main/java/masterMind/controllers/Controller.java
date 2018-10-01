@@ -26,7 +26,7 @@ public abstract class Controller {
 	public void tryCode(Permutation attemp) {
 		assert attemp != null;
 		game.tryCode(attemp);
-		if (game.isBrokenSecretCode()) {
+        if (game.isBrokenSecretCode() || !game.moreAttemps()) {
 			game.setState(State.FINAL);
 		}
 	}
@@ -57,5 +57,9 @@ public abstract class Controller {
 
     protected void setMode(Mode mode) {
         this.game.setMode(mode);
+    }
+
+    public boolean moreAttemps() {
+        return game.moreAttemps();
     }
 }

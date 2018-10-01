@@ -27,4 +27,11 @@ class BoardView {
 		IO io = new IO();
 		io.writeln("Victoria!!!! " + "La clave ha sido descifrada!!" + "! Victoria!!!!");
 	}
+
+	void writeLoser(String secretCode) {
+		IO io = new IO();
+		io.writeln("Lo sentimos. Ha agotado el numero de intentos. La clave era: " + secretCode);
+		io.writeln("	Vuelva a intentarlo.");
+	}
+
 }
