@@ -38,11 +38,7 @@ public class Coordinate {
 		coordinate.setColumn(column);
 	}
 	
-	public void random() {
-		Random random = new Random(System.currentTimeMillis());
-		coordinate.setRow(random.nextInt(Coordinate.DIMENSION));
-		coordinate.setColumn(random.nextInt(Coordinate.DIMENSION));
-	}
+
 	
 	public Direction direction(Coordinate coordinate){
 		Direction direction = this.coordinate.direction(coordinate.coordinate);
